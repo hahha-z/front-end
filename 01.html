@@ -5,6 +5,84 @@
     <title>QQmusic</title>
     <link rel="stylesheet" href="./02.position.css">
 </head>
+<script>
+    window.onload = function(){
+        var translist = document.getElementById("trans_list");
+        var allA = document.getElementsByClassName("diana");
+        var index = 0;
+        allA[index].style.backgroundColor = "black";
+
+        /* 《歌单推荐》点击导航 */
+        for(var i=0 ; i<allA.length ; i++){
+            allA[i].num = i;
+            allA[i].onclick = function(){
+                index = this.num;
+                //translist.style.left = -1200*index + "px";
+                setA();
+                move(translist , "left" , -1200*index , 10 , function(){
+
+                })
+            }
+        }
+        function setA(){
+            for(var i=0 ; i<allA.length ; i++){
+                allA[i].style.backgroundColor = "";
+            }
+            allA[index].style.backgroundColor = "black";
+        }
+
+        /* 《新歌首发》导航 */
+        var dblist = document.getElementById("dblist");
+        var allB = document.getElementsByClassName("dianb");
+        allB[index].style.backgroundColor = "black";
+
+
+        for(var i=0 ; i<allB.length ; i++){
+            allB[i].num = i;
+            allB[i].onclick = function(){
+                index = this.num;
+                //translist.style.left = -1200*index + "px";
+                setB();
+                move(dblist , "left" , -1230*index , 10 , function(){
+
+                })
+            }
+        }
+        function setA(){
+            for(var i=0 ; i<allA.length ; i++){
+                allA[i].style.backgroundColor = "";
+            }
+            allA[index].style.backgroundColor = "black";
+        }
+        function setB(){
+            for(var i=0 ; i<allB.length ; i++){
+                allB[i].style.backgroundColor = "";
+            }
+            allB[index].style.backgroundColor = "black";
+        }
+        
+    }
+    var timer;
+    function move(obj,attr,target,speed,callback){
+        clearInterval(obj.timer);
+        var current = parseInt(getComputedStyle(obj)[attr]);
+        if(current > target){
+            speed = -speed;
+        }
+        obj.timer = setInterval(function(){
+            var oldValue = parseInt(getComputedStyle(obj)[attr]);
+            var newValue = oldValue + speed;
+            if((speed <0 && newValue < target) || (speed > 0 && newValue > target)){
+                newValue = target;
+            }
+            obj.style[attr] = newValue + "px";
+            if(newValue == target){
+                clearInterval(obj.timer);
+                callback();
+            }
+        })
+    }
+</script>
 <body>
     <div class="container">
         <!-- 页首 -->
@@ -26,6 +104,9 @@
                 <!-- 搜索 -->
                 <div class="header_search">
                     <input type="search_input" placeholder="搜索音乐、MV、歌单、用户">
+                    <button class="btn1">
+                        <div class="btn_search"></div>
+                    </button>
                 </div>
                 <!-- 其他 -->
                 <div class="header_other">
@@ -62,59 +143,217 @@
                 <a class="pl_item">情歌</a>
             </div>
             <!-- 具体音乐 -->
-            <div class="pl_music">
-                <div class="a">
-                    <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7156476125" target="_blank">
-                        <img src="	https://qpic.y.qq.com/music_cover/Rd8KzPO3trnp95LHmLw0k2icTc7iauKiaWaRqfMowkOpec9JI5EhU7NHg/300?n=1">
-                    </a>
-                    <h4 class="pl_title">仰望星空时，有你和轻音乐才完美</h4>
-                    <div class="pl_view">播放量：31.8万</div>
-                </div>
-                <div class="b">
-                    <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/4195331617" targer="_blank">
-                        <img src="	https://qpic.y.qq.com/music_cover/UK1BOj3IRzsiak2mfOIZReLAZZ5N76ho87w1ciaHS92dE2ByMFekZzbg/300?n=1">
-                    </a>
-                    <h4 class="pl_title">节奏型轻音乐，工作效率up up！</h4>
-                    <div class="pl_view">播放量：412.6万</div>
-                </div>
-                <div class="c">
-                    <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/9271247911" targer="_blank">
-                        <img src="https://qpic.y.qq.com/music_cover/fs1icibPmgGntdlsXQX6W9lvl87zrxeB3BSaia6wEBpFphzHEUOluuPfw/300?n=1">
-                    </a>
-                    <h4 class="pl_title">抖音最火：全网热播的流行歌</h4>
-                    <div class="pl_view">播放量：1.3亿</div>
-                </div>
-                <div class="d">
-                    <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8607105867" targer="_blank">
-                        <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabcoGxR2etE7bovO4CDQuJXqKhNwCYtOKKA/300?n=1">
-                    </a>
-                    <h4 class="pl_title">热门BGM·要的就是这个氛围</h4>
-                    <div class="pl_view">播放量：1.1万</div>
-                </div>
-                <div class="e">
-                    <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7114310088" targer="_blank">
-                        <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabfI2pUXibs03P53phLT9kaG3d4B8FN72orQ/300?n=1">
-                    </a>
-                    <h4 class="pl_title">纯音孤寂|尽其物哀之美</h4>
-                    <div class="pl_view">播放量：6.8万</div>
-                </div>
+            <div class="pl_trans">
+                <!-- 1 -->
+                <ul id="trans_list">
+                    <li id="trans_items">
+                        <div class="a">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7156476125" target="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/Rd8KzPO3trnp95LHmLw0k2icTc7iauKiaWaRqfMowkOpec9JI5EhU7NHg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">仰望星空时，有你和轻音乐才完美</h4>
+                            <div class="pl_view">播放量：31.8万</div>
+                        </div>
+                        <div class="b">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/4195331617" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/UK1BOj3IRzsiak2mfOIZReLAZZ5N76ho87w1ciaHS92dE2ByMFekZzbg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">节奏型轻音乐，工作效率up up！</h4>
+                            <div class="pl_view">播放量：412.6万</div>
+                        </div>
+                        <div class="c">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/9271247911" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/fs1icibPmgGntdlsXQX6W9lvl87zrxeB3BSaia6wEBpFphzHEUOluuPfw/300?n=1">
+                            </a>
+                            <h4 class="pl_title">抖音最火：全网热播的流行歌</h4>
+                            <div class="pl_view">播放量：1.3亿</div>
+                        </div>
+                        <div class="d">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8607105867" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabcoGxR2etE7bovO4CDQuJXqKhNwCYtOKKA/300?n=1">
+                            </a>
+                            <h4 class="pl_title">热门BGM·要的就是这个氛围</h4>
+                            <div class="pl_view">播放量：1.1万</div>
+                        </div>
+                        <div class="e">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7114310088" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabfI2pUXibs03P53phLT9kaG3d4B8FN72orQ/300?n=1">
+                            </a>
+                            <h4 class="pl_title">纯音孤寂|尽其物哀之美</h4>
+                            <div class="pl_view">播放量：6.8万</div>
+                        </div>
+                    </li>
+                <!-- 2 -->
+                    <li id="trans_items">
+                        <div class="a">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7427004247" target="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/bhGSB1hd97u4TgzeN2T7MQlyAUvMTS5hG8QmME92bze9nxLlYeEmLQ/300?n=1">
+                            </a>
+                            <h4 class="pl_title">那些藏在歌里深深的思念</h4>
+                            <div class="pl_view">播放量：5.3万</div>
+                        </div>
+                        <div class="b">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7426999675" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/icwWl580AvSHYFvicibDicm8GECzibec0n2gmgy6SQAOH9pS56Q2VsD2W2g/300?n=1">
+                            </a>
+                            <h4 class="pl_title">驱散不安！华语热门的最佳治愈曲</h4>
+                            <div class="pl_view">播放量：14.0万</div>
+                        </div>
+                        <div class="c">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7859511950" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/GOEVvnGlzNCJceqmxHIlf8blmTGj6JucnOQ3Rs14GmzeFYjO4aFZnQ/300?n=1">
+                            </a>
+                            <h4 class="pl_title">单依纯 | 天生歌者，绝美嗓音</h4>
+                            <div class="pl_view">播放量：3003.3万</div>
+                        </div>
+                        <div class="d">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8911762458" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/TXYJEvwddGda6FMnydv9RjJPWBElagXRzHHw9Lzghf7WuYicBgQmcOg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">故事感/怪诞/沉沦幻想深渊</h4>
+                            <div class="pl_view">播放量：185.8万</div>
+                        </div>
+                        <div class="e">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7565093011" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/uPA58W8yiam1c76QzvzYgL3FsfbLbMXfUSib1dm2P1cacRemPARShTdg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">Justin Bieber历年代表作精选</h4>
+                            <div class="pl_view">播放量：1175.9万</div>
+                        </div>
+                    </li>
+                <!-- 3 -->
+                    <li id="trans_items">
+                        <div class="a">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/player" target="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/w2jMQoibPYmhOtZw…AOiaekKksAicmzAPL8xZfV7rOYyxnuqcN8gRtYbJw/300?n=1">
+                            </a>
+                            <h4 class="pl_title">巨人丨这就是,帕拉迪岛的恶魔!</h4>
+                            <div class="pl_view">播放量：91.6万</div>
+                        </div>
+                        <div class="b">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/4195331617" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/JjGNZ08VwYaD0Nics1puRvS7W4sxtOlUnHZGxJGB49RrzDMG0jEK1Ow/300?n=1">
+                            </a>
+                            <h4 class="pl_title">国/日漫 | 次元列车跨越空间限制</h4>
+                            <div class="pl_view">播放量：10.8万</div>
+                        </div>
+                        <div class="c">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/9271247911" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/QGWZmQVBPdPJ0Y8OC0Ppnl8YicQlwqWbjhAfohEfR7SdMQM1oI8XfOg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">「王者荣耀」超神必备BGM</h4>
+                            <div class="pl_view">播放量：54.4万</div>
+                        </div>
+                        <div class="d">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8607105867" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/HwfaibhmHYlaP7h0sBpT9nFLDrF8LbicknvrKY4zI0ZKBMY7t3JnvXpA/300?n=1">
+                            </a>
+                            <h4 class="pl_title">纯音乐：适合学习时听的音乐</h4>
+                            <div class="pl_view">播放量：1.1亿</div>
+                        </div>
+                        <div class="e">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7114310088" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/PiajxSqBRaELRgVjqJM5YWkn0HpkhEPxiadGCapcYJiazs/300?n=1">
+                            </a>
+                            <h4 class="pl_title">流行英文歌曲集</h4>
+                            <div class="pl_view">播放量：2762.4万</div>
+                        </div>
+                    </li>
+                <!-- 4 -->
+                    <li id="trans_items">
+                        <div class="a">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7156476125" target="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/rtBgMnB0agshMVhO…VaP4ib96pg4lpx9YIZZtODkKeeI7kJJt6niccPDF3/300?n=1">
+                            </a>
+                            <h4 class="pl_title">「欧美律动」让阳光藏在口袋里～</h4>
+                            <div class="pl_view">播放量：32.6万</div>
+                        </div>
+                        <div class="b">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/4195331617" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/UK1BOj3IRzsiak2mfOIZReLAZZ5N76ho87w1ciaHS92dE2ByMFekZzbg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">节奏型轻音乐，工作效率up up！</h4>
+                            <div class="pl_view">播放量：412.6万</div>
+                        </div>
+                        <div class="c">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/9271247911" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/fs1icibPmgGntdlsXQX6W9lvl87zrxeB3BSaia6wEBpFphzHEUOluuPfw/300?n=1">
+                            </a>
+                            <h4 class="pl_title">抖音最火：全网热播的流行歌</h4>
+                            <div class="pl_view">播放量：1.3亿</div>
+                        </div>
+                        <div class="d">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8607105867" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabcoGxR2etE7bovO4CDQuJXqKhNwCYtOKKA/300?n=1">
+                            </a>
+                            <h4 class="pl_title">热门BGM·要的就是这个氛围</h4>
+                            <div class="pl_view">播放量：1.1万</div>
+                        </div>
+                        <div class="e">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7114310088" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabfI2pUXibs03P53phLT9kaG3d4B8FN72orQ/300?n=1">
+                            </a>
+                            <h4 class="pl_title">纯音孤寂|尽其物哀之美</h4>
+                            <div class="pl_view">播放量：6.8万</div>
+                        </div>
+                    </li>
+                <!-- 5 -->
+                    <li id="trans_items">
+                        <div class="a">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7156476125" target="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/Rd8KzPO3trnp95LHmLw0k2icTc7iauKiaWaRqfMowkOpec9JI5EhU7NHg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">仰望星空时，有你和轻音乐才完美</h4>
+                            <div class="pl_view">播放量：31.8万</div>
+                        </div>
+                        <div class="b">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/4195331617" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/UK1BOj3IRzsiak2mfOIZReLAZZ5N76ho87w1ciaHS92dE2ByMFekZzbg/300?n=1">
+                            </a>
+                            <h4 class="pl_title">节奏型轻音乐，工作效率up up！</h4>
+                            <div class="pl_view">播放量：412.6万</div>
+                        </div>
+                        <div class="c">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/9271247911" targer="_blank">
+                                <img src="https://qpic.y.qq.com/music_cover/fs1icibPmgGntdlsXQX6W9lvl87zrxeB3BSaia6wEBpFphzHEUOluuPfw/300?n=1">
+                            </a>
+                            <h4 class="pl_title">抖音最火：全网热播的流行歌</h4>
+                            <div class="pl_view">播放量：1.3亿</div>
+                        </div>
+                        <div class="d">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/8607105867" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabcoGxR2etE7bovO4CDQuJXqKhNwCYtOKKA/300?n=1">
+                            </a>
+                            <h4 class="pl_title">热门BGM·要的就是这个氛围</h4>
+                            <div class="pl_view">播放量：1.1万</div>
+                        </div>
+                        <div class="e">
+                            <a class="pl_picture" href="https://y.qq.com/n/ryqq/playlist/7114310088" targer="_blank">
+                                <img src="	https://qpic.y.qq.com/music_cover/eXk10ursYwCorES3R0LiabfI2pUXibs03P53phLT9kaG3d4B8FN72orQ/300?n=1">
+                            </a>
+                            <h4 class="pl_title">纯音孤寂|尽其物哀之美</h4>
+                            <div class="pl_view">播放量：6.8万</div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="dian">
-                <a class="solid">
-                    <a class="so so_one"></a>
+            <div id="front">
+                <a href="" id="btn_front">
+                    <i id="icon_front"></i>
                 </a>
-                <a class="solid">
-                    <a class="so"></a>
+            </div>
+            <div id="next">
+                <a href="" id="btn_next">
+                    <i id="icon_next"></i>
                 </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
+            </div>
+            <!-- 导航 -->
+            <div id="dian">
+                <a href="javascript:;" class="diana"></a>
+                <a href="javascript:;" class="diana"></a>
+                <a href="javascript:;" class="diana"></a>
+                <a href="javascript:;" class="diana"></a>
+                <a href="javascript:;" class="diana"></a>
             </div>
         </div>
         <!-- 新歌首发 -->
@@ -135,151 +374,400 @@
             </div>
             <!-- 新歌 -->
             <div class="db_new">
-                <div class="db_new_inner">
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="https://y.qq.com/music/photo_new/T002R300x300M0000031VZXc0Wx9Zb_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/001v3QSg3FKgXF">
-                                    红鸾《五福临门》影视剧主题曲
-                                </a>
-                            </h3>
-                            <p class="author">吴宣仪</p>
+                <ul id="dblist">
+                    <!-- 1 -->
+                    <li class="db_new_inner">
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M0000031VZXc0Wx9Zb_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/001v3QSg3FKgXF">
+                                        红鸾《五福临门》影视剧主题曲
+                                    </a>
+                                </h3>
+                                <p class="author">吴宣仪</p>
+                            </div>
+                            <div class="db_duration">04:15</div>
                         </div>
-                        <div class="db_duration">04:15</div>
-                    </div>
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="	https://y.qq.com/music/photo_new/T002R300x300M000004SlX1i2dLxWa_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/0010D3os1MQxyZ">
-                                    Plazma
-                                </a>
-                            </h3>
-                            <p class="author">米津玄師 (よねづ けんし)</p>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000004SlX1i2dLxWa_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0010D3os1MQxyZ">
+                                        Plazma
+                                    </a>
+                                </h3>
+                                <p class="author">米津玄師 (よねづ けんし)</p>
+                            </div>
+                            <div class="db_duration">03:00</div>
                         </div>
-                        <div class="db_duration">03:00</div>
-                    </div>
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="	https://y.qq.com/music/photo_new/T002R300x300M000000qIQgB2pH3P3_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/0025MZPQ1cHFWI">
-                                    爱上你我很快乐（欢乐电音版）
-                                </a>
-                            </h3>
-                            <p class="author">水木年华</p>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000000qIQgB2pH3P3_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0025MZPQ1cHFWI">
+                                        爱上你我很快乐（欢乐电音版）
+                                    </a>
+                                </h3>
+                                <p class="author">水木年华</p>
+                            </div>
+                            <div class="db_duration">04:09</div>
                         </div>
-                        <div class="db_duration">04:09</div>
-                    </div>
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="https://y.qq.com/music/photo_new/T002R300x300M000003S1kWC2EpjK6_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/003tQ7HV3Bvbh0">
-                                    Mama Said (뭐가 되려고?)
-                                </a>
-                            </h3>
-                            <p class="author">KickFlip</p>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003S1kWC2EpjK6_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003tQ7HV3Bvbh0">
+                                        Mama Said (뭐가 되려고?)
+                                    </a>
+                                </h3>
+                                <p class="author">KickFlip</p>
+                            </div>
+                            <div class="db_duration">02:56</div>
                         </div>
-                        <div class="db_duration">02:56</div>
-                    </div>
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="https://y.qq.com/music/photo_new/T002R300x300M000003ryxCB4bDTe5_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/0026YhRj1p6GFt">
-                                    冰凌花
-                                </a>
-                            </h3>
-                            <p class="author">周深</p>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003ryxCB4bDTe5_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0026YhRj1p6GFt">
+                                        冰凌花
+                                    </a>
+                                </h3>
+                                <p class="author">周深</p>
+                            </div>
+                            <div class="db_duration">03:56</div>
                         </div>
-                        <div class="db_duration">03:56</div>
-                    </div>
-                    <div class="db_song">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="https://y.qq.com/music/photo_new/T002R300x300M000000A1RTv3VKQ32_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/0001Olv130xzIQ">
-                                    Forever Young
-                                </a>
-                            </h3>
-                            <p class="author">Alan Walker</p>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000A1RTv3VKQ32_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0001Olv130xzIQ">
+                                        Forever Young
+                                    </a>
+                                </h3>
+                                <p class="author">Alan Walker</p>
+                            </div>
+                            <div class="db_duration">02:58</div>
                         </div>
-                        <div class="db_duration">02:58</div>
-                    </div>
-                    <div class="db_song_a">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="https://y.qq.com/music/photo_new/T002R300x300M000000CGduA4Ni3pQ_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/000dsWxQ2DyrBQ">
-                                    光影绣
-                                </a>
-                            </h3>
-                            <p class="author">黄子弘凡 /英雄联盟手游</p>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000CGduA4Ni3pQ_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/000dsWxQ2DyrBQ">
+                                        光影绣
+                                    </a>
+                                </h3>
+                                <p class="author">黄子弘凡 /英雄联盟手游</p>
+                            </div>
+                            <div class="db_duration">03:06</div>
                         </div>
-                        <div class="db_duration">03:06</div>
-                    </div>
-                    <div class="db_song_a">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="	https://y.qq.com/music/photo_new/T002R300x300M000001smKGI1715ho_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/003mOpTp2Vcehi">
-                                    那群傻瓜
-                                </a>
-                            </h3>
-                            <p class="author">张远</p>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000001smKGI1715ho_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003mOpTp2Vcehi">
+                                        那群傻瓜
+                                    </a>
+                                </h3>
+                                <p class="author">张远</p>
+                            </div>
+                            <div class="db_duration">03:36</div>
                         </div>
-                        <div class="db_duration">03:36</div>
-                    </div>
-                    <div class="db_song_a">
-                        <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
-                            <img src="	https://y.qq.com/music/photo_new/T002R300x300M000002UYRJr2hKz1O_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
-                        </a>
-                        <div class="db_name">
-                            <h3 class="db_nm">
-                                <a href="https://y.qq.com/n/ryqq/songDetail/003msBju4BXxrB">
-                                    爱在公园前
-                                </a>
-                            </h3>
-                            <p class="author">好妹妹乐队</p>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000002UYRJr2hKz1O_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003msBju4BXxrB">
+                                        爱在公园前
+                                    </a>
+                                </h3>
+                                <p class="author">好妹妹乐队</p>
+                            </div>
+                            <div class="db_duration">03:53</div>
                         </div>
-                        <div class="db_duration">03:53</div>
-                    </div>
-                </div>
+                    </li>
+                    <!-- 2 -->
+                    <li class="db_new_inner">
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003OF1Jb13tGL9_2.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/001v3QSg3FKgXF">
+                                        간절한 소원
+                                    </a>
+                                </h3>
+                                <p class="author">裴秀智</p>
+                            </div>
+                            <div class="db_duration">04:51</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000002onfw00WS4Hh_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0010D3os1MQxyZ">
+                                        ImPerfect
+                                    </a>
+                                </h3>
+                                <p class="author">NewKids</p>
+                            </div>
+                            <div class="db_duration">03:46</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000001WI8Jx173I1p_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0025MZPQ1cHFWI">
+                                        YEAH
+                                    </a>
+                                </h3>
+                                <p class="author">Dimitri Vegas</p>
+                            </div>
+                            <div class="db_duration">02:29</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000002WPsxv2YD7cN_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003tQ7HV3Bvbh0">
+                                        i人世界太奇怪
+                                    </a>
+                                </h3>
+                                <p class="author">张洢豪</p>
+                            </div>
+                            <div class="db_duration">02:56</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003ryxCB4bDTe5_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0026YhRj1p6GFt">
+                                        冰凌花
+                                    </a>
+                                </h3>
+                                <p class="author">周深</p>
+                            </div>
+                            <div class="db_duration">03:56</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000A1RTv3VKQ32_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0001Olv130xzIQ">
+                                        Forever Young
+                                    </a>
+                                </h3>
+                                <p class="author">Alan Walker</p>
+                            </div>
+                            <div class="db_duration">02:58</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000CGduA4Ni3pQ_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/000dsWxQ2DyrBQ">
+                                        光影绣
+                                    </a>
+                                </h3>
+                                <p class="author">黄子弘凡 /英雄联盟手游</p>
+                            </div>
+                            <div class="db_duration">03:06</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000001smKGI1715ho_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003mOpTp2Vcehi">
+                                        那群傻瓜
+                                    </a>
+                                </h3>
+                                <p class="author">张远</p>
+                            </div>
+                            <div class="db_duration">03:36</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000002UYRJr2hKz1O_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003msBju4BXxrB">
+                                        爱在公园前
+                                    </a>
+                                </h3>
+                                <p class="author">好妹妹乐队</p>
+                            </div>
+                            <div class="db_duration">03:53</div>
+                        </div>
+                    </li>
+                    <!-- 3 -->
+                    <li class="db_new_inner">
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003OF1Jb13tGL9_2.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/001v3QSg3FKgXF">
+                                        간절한 소원
+                                    </a>
+                                </h3>
+                                <p class="author">裴秀智</p>
+                            </div>
+                            <div class="db_duration">04:51</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000002onfw00WS4Hh_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0010D3os1MQxyZ">
+                                        ImPerfect
+                                    </a>
+                                </h3>
+                                <p class="author">NewKids</p>
+                            </div>
+                            <div class="db_duration">03:46</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000001WI8Jx173I1p_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0025MZPQ1cHFWI">
+                                        YEAH
+                                    </a>
+                                </h3>
+                                <p class="author">Dimitri Vegas</p>
+                            </div>
+                            <div class="db_duration">02:29</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000002WPsxv2YD7cN_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003tQ7HV3Bvbh0">
+                                        i人世界太奇怪
+                                    </a>
+                                </h3>
+                                <p class="author">张洢豪</p>
+                            </div>
+                            <div class="db_duration">02:56</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000003ryxCB4bDTe5_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0026YhRj1p6GFt">
+                                        冰凌花
+                                    </a>
+                                </h3>
+                                <p class="author">周深</p>
+                            </div>
+                            <div class="db_duration">03:56</div>
+                        </div>
+                        <div class="db_song">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000A1RTv3VKQ32_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/0001Olv130xzIQ">
+                                        Forever Young
+                                    </a>
+                                </h3>
+                                <p class="author">Alan Walker</p>
+                            </div>
+                            <div class="db_duration">02:58</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="https://y.qq.com/music/photo_new/T002R300x300M000000CGduA4Ni3pQ_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/000dsWxQ2DyrBQ">
+                                        光影绣
+                                    </a>
+                                </h3>
+                                <p class="author">黄子弘凡 /英雄联盟手游</p>
+                            </div>
+                            <div class="db_duration">03:06</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000001smKGI1715ho_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003mOpTp2Vcehi">
+                                        那群傻瓜
+                                    </a>
+                                </h3>
+                                <p class="author">张远</p>
+                            </div>
+                            <div class="db_duration">03:36</div>
+                        </div>
+                        <div class="db_song_a">
+                            <a href="https://y.qq.com/n/ryqq/player" class="db_picture">
+                                <img src="	https://y.qq.com/music/photo_new/T002R300x300M000002UYRJr2hKz1O_1.jpg?max_age=2592000" alt="new_song" class="db_pt">
+                            </a>
+                            <div class="db_name">
+                                <h3 class="db_nm">
+                                    <a href="https://y.qq.com/n/ryqq/songDetail/003msBju4BXxrB">
+                                        爱在公园前
+                                    </a>
+                                </h3>
+                                <p class="author">好妹妹乐队</p>
+                            </div>
+                            <div class="db_duration">03:53</div>
+                        </div>
+                    </li>                
+                </ul>
             </div>
-            <div class="dian">
-                <a class="solid">
-                    <a class="so so_one"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
-                <a class="solid">
-                    <a class="so"></a>
-                </a>
+            <div id="dian">
+                <a href="javascript:;" class="dianb"></a>
+                <a href="javascript:;" class="dianb"></a>
+                <a href="javascript:;" class="dianb"></a>
             </div>
         </div>
         <!-- 页脚 -->

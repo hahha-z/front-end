@@ -137,7 +137,7 @@
     width: 224px;
     height: 224px;
     padding: 0 0 10px 0;
-    transition: 0.1s 0.1s linear all;
+    transition: 0.05s 0.05s linear all;
 }
 .pl_picture img:hover {
     transform: scale(1.05);
@@ -156,7 +156,7 @@
     color: #999;
     font-weight: lighter;
     font-size: 14px;
-    height: 300px;
+    height: 50px;
     margin-top: 5px;
 }
 .db_all {
@@ -209,11 +209,6 @@
 }
 .db_song {
     border-bottom: 1px solid #eee;
-}
-.db_new_inner {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
 }
 .db_nm a {
     color: #111;
@@ -305,29 +300,7 @@
     color: #31c27c;
     cursor: pointer;
 }
-.dian {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-.solid {
-    display: inline-block;
-    width: 28px;
-    height: 12px;
-    padding: 0 0 26px;
-    margin: 0 1px;
-}
-.so {
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-}
-.so {
-    background-color: #ddd;
-}
-.so_one {
-    background-color: #999;
-}
+
 .so:hover {
     background-color: #999;
     cursor: pointer;
@@ -384,4 +357,144 @@
 .pr1 {
     margin-left: 0;
 }
+.a,
+.b,
+.c,
+.d,
+.e {
+    display: inline-block;
+    height: 300px;
+}
+#trans_items {
+    display: inline-block;
+    list-style: none;
+    height: 300px;
+    margin: 0 auto;
+    transition: transform 0.5s ease-in-out;
+}
+#trans_list {
+   margin: 20px;
+   width: 5970px;
+   height: 200px;
+   position: absolute;
+   left:0;
+}
+.pl_trans {
+    width: 1189px;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+#dian a {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin: 20px 10px;
+    background-color: grey;
+    opacity: 0.5;
+}
+#dian a:hover {
+    background-color: #111;
+    opacity: 0.5;
+}
+#dian {
+    text-align: center;
+}
+.db_new {
+    width: 1230px;
+    height: 350px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
 
+#dblist {
+    width: 3690px;
+    height: 350px;
+    display: flex;
+    flex-flow: row nowrap;
+    position: absolute;
+    left: 0;
+}
+.db_new_inner {
+    width: 1230px;
+    height: 310px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    list-style: none;
+}
+#front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+#next {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+.Playlist-recommendation {
+    position: relative;
+}
+#btn_front {
+    display: inline-block;
+    width: 100px;
+    height: 150px;
+    background-color: gray;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 3px;
+    position: relative;
+    left: 0;
+    top: 35%;
+    text-align: right;
+    
+}
+#btn_next {
+    display: inline-block;
+    width: 100px;
+    height: 150px;
+    background-color: gray;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 3px;
+    position: relative;
+    top: 35%;
+    left: 86%;
+    text-align: left;
+}
+#icon_front {
+    display: inline-block;
+    background-image: url(https://y.qq.com/ryqq/static/media/icon_sprite@2x.bf4cef49.png?max_age=2592000);
+    width: 40px;
+    height: 80px;
+    margin: 30px 0;
+    background-position: -37px -240px;
+    opacity: 0;  
+    transition: opacity 0.3s ease;
+}
+#icon_next {
+    display: inline-block;
+    background-image: url(https://y.qq.com/ryqq/static/media/icon_sprite@2x.bf4cef49.png?max_age=2592000);
+    width: 40px;
+    height: 80px;
+    margin: 30px 0;
+    background-position: 0 -240px;
+    opacity: 0;  
+    transition: opacity 0.3s ease;
+}
+.Playlist-recommendation:hover #icon_front,
+.Playlist-recommendation:hover #icon_next {
+    opacity: 1;
+}
+.Playlist-recommendation:hover #btn_front,
+.Playlist-recommendation:hover #btn_next {
+    opacity: 0.1;
+}
